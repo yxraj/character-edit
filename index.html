@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iconic Character Edit🎆</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1b2735 0%, #090a0f 60%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+h1 {
+  margin-bottom: 40px;
+  font-size: 3.2rem;
+  background: linear-gradient(90deg, #ffd700, #ff6a00, #00eaff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+/* Cards Layout */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 35px;
+  width: 90%;
+  max-width: 1000px;
+  z-index: 2;
+}
+
+.card {
+  position: relative;
+  height: 360px;
+  border-radius: 22px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.6),
+    0 0 40px rgba(255,215,0,0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-12px) scale(1.05);
+  box-shadow:
+    0 30px 70px rgba(0,0,0,0.8),
+    0 0 70px rgba(255,215,0,0.4);
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.85);
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.1));
+}
+
+.card-title {
+  position: absolute;
+  bottom: 25px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  z-index: 2;
+  text-transform: uppercase;
+}
+
+/* Overlay & Video */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.video-box {
+  width: 90%;
+  max-width: 900px;
+  background: #000;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow:
+    0 0 60px rgba(255,215,0,0.4),
+    0 0 100px rgba(0,255,255,0.25);
+  animation: popIn 0.45s ease;
+}
+
+video {
+  width: 100%;
+  border-radius: 14px;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 600px) {
+  h1 { font-size: 2.4rem; }
+  .card { height: 300px; }
+}
+
+  </style>
+</head>
+<body>  <h1>Choose Your Iconic Character Edit</h1>  <div class="card-container"><div class="card" data-video="ultron.mp4">
+  <img src="ultron.jpg" alt="Ultron" />
+  <div class="card-title">Ultron</div>
+</div>
+
+<div class="card" data-video="thanos.mp4">
+  <img src="thanos.jpg" alt="Thanos" />
+  <div class="card-title">Thanos</div>
+</div>
+
+<div class="card" data-video="ironman.mp4">
+  <img src="ironman.jpg" alt="Iron Man" />
+  <div class="card-title">Iron Man</div>
+</div>
+ 
+  
+<div class="card" data-video="captain.mp4">
+  <img src="captain.jpg" alt="Captain America" />
+  <div class="card-title">Captain America</div>
+</div>
+
+  </div>  <div class="overlay" id="overlay">
+    <div class="video-box">
+      <video id="giftVideo" controls></video>
+    </div>
+  </div>  <script>
+    const cards = document.querySelectorAll('.card');
+    const overlay = document.getElementById('overlay');
+    const video = document.getElementById('giftVideo');
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const videoSrc = card.getAttribute('data-video');
+        video.src = videoSrc;
+        video.currentTime = 0;
+        overlay.style.display = 'flex';
+        video.play();
+      });
+    });
+
+    // Auto close when video ends
+    video.addEventListener('ended', () => {
+      overlay.style.display = 'none';
+      video.src = '';
+    });
+  </script></body>
+</html>
